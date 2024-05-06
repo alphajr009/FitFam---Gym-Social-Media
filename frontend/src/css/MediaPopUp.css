@@ -1,0 +1,160 @@
+hr {
+    border: none; 
+    height: 1px;
+    width: 100%; 
+    right: 180px; 
+    background-color: #66676c;
+    margin: 4px 10px 10px; 
+  }
+
+  .userInfo {
+    display: flex;
+    gap: 20px;
+    color: #b0b3b8;
+  }
+  .userInfo img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .name {
+    font-weight: 600;
+    font-size: 16px;
+  }
+  
+  :where(.css-dev-only-do-not-override-1kuana8).ant-input-outlined {
+    background: #242526;
+    border-width: 2px;
+    border-style: none;
+    border-color: transparent;
+}
+
+:where(.css-dev-only-do-not-override-1kuana8).ant-input-outlined:focus, :where(.css-dev-only-do-not-override-1kuana8).ant-input-outlined:focus-within {
+    border-color: transparent;
+    box-shadow: #242526;
+    outline: 0;
+    background-color: #242526;
+    border: none;
+}
+
+:where(.css-dev-only-do-not-override-1kuana8).ant-input-outlined:focus, :where(.css-dev-only-do-not-override-1kuana8).ant-input-outlined:focus-within {
+    /* border-color: #1677ff; */
+    box-shadow: #242526;
+    outline: 0;
+    background-color: #242526;
+}
+
+.crb-s2-images-upload :where(.css-dev-only-do-not-override-1vtf12y).ant-upload-wrapper.ant-upload-picture-card-wrapper .ant-upload.ant-upload-select,
+:where(.css-dev-only-do-not-override-1vtf12y).ant-upload-wrapper.ant-upload-picture-circle-wrapper .ant-upload.ant-upload-select {
+    width: 105px;
+    height: 105px;
+}
+
+.crb-s2-images-upload :where(.css-dev-only-do-not-override-1vtf12y).ant-upload-wrapper.ant-upload-picture-card-wrapper .ant-upload-list.ant-upload-list-picture-card .ant-upload-list-item-container,
+:where(.css-dev-only-do-not-override-1vtf12y).ant-upload-wrapper.ant-upload-picture-circle-wrapper .ant-upload-list.ant-upload-list-picture-card .ant-upload-list-item-container,
+:where(.css-dev-only-do-not-override-1vtf12y).ant-upload-wrapper.ant-upload-picture-card-wrapper .ant-upload-list.ant-upload-list-picture-circle .ant-upload-list-item-container,
+:where(.css-dev-only-do-not-override-1vtf12y).ant-upload-wrapper.ant-upload-picture-circle-wrapper .ant-upload-list.ant-upload-list-picture-circle .ant-upload-list-item-container {
+    width: 105px;
+    height: 105px;
+}
+
+.scrb-s2-iu-wrapper {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    margin-top: 38px;
+    margin-left: 80px;
+    justify-content: space-around;
+
+}
+
+.scrb-s2-iu-wrapper-box-main {
+    background-color: black;
+    border-radius: 12px;
+    box-shadow: 0 0 1px 1px black;
+    width: 130px;
+    height: 120px;
+   
+}
+.crb-s2-header {
+    font-family: "Sansation-Bold", sans-serif;
+    font-size: 10px;
+    margin-top: 20px;
+}
+
+.crb-s2-images-upload {
+    margin-bottom: 50px;
+}
+
+.scrb-image-upload-icon {
+    text-align: center;
+    margin-top: 8px;
+}
+
+.scrb-image-upload-icon img {
+    height: 68px;
+    width: 70px;
+    margin-left: 15px;
+}
+
+.scrb-image-uploadimg-txt h4 {
+    margin-top: 0px;
+    font-size: 13px;
+    text-align: center;
+    margin-bottom: 0px;
+}
+
+.media-head-title{
+    font-family: "SF Pro Display-Medium";
+    font-size: 18px !important;
+    margin-top: 0px;
+    margin-bottom: 20px;
+    color: white !important;
+}
+
+
+.crb-s2-images-upload :where(.css-dev-only-do-not-override-1vtf12y).ant-upload-wrapper.ant-upload-picture-card-wrapper .ant-upload.ant-upload-select,
+:where(.css-dev-only-do-not-override-1vtf12y).ant-upload-wrapper.ant-upload-picture-circle-wrapper .ant-upload.ant-upload-select {
+    width: 105px;
+    height: 105px;
+}
+
+.crb-s2-images-upload :where(.css-dev-only-do-not-override-1vtf12y).ant-upload-wrapper.ant-upload-picture-card-wrapper .ant-upload-list.ant-upload-list-picture-card .ant-upload-list-item-container,
+:where(.css-dev-only-do-not-override-1vtf12y).ant-upload-wrapper.ant-upload-picture-circle-wrapper .ant-upload-list.ant-upload-list-picture-card .ant-upload-list-item-container,
+:where(.css-dev-only-do-not-override-1vtf12y).ant-upload-wrapper.ant-upload-picture-card-wrapper .ant-upload-list.ant-upload-list-picture-circle .ant-upload-list-item-container,
+:where(.css-dev-only-do-not-override-1vtf12y).ant-upload-wrapper.ant-upload-picture-circle-wrapper .ant-upload-list.ant-upload-list-picture-circle .ant-upload-list-item-container {
+    width: 105px;
+    height: 105px;
+}
+
+.scrb-s3-iu-wrapper {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    margin-top: 38px;
+    margin-left: 270px;
+    margin-bottom: 20px;
+    justify-content: space-around;
+
+}
+
+.scrb-s3-iu-wrapper-box-main {
+    background-color: black;
+    border-radius: 12px;
+    box-shadow: 0 0 1px 1px black;
+    width: 130px;
+    height: 120px;
+   
+}
+.crb-s3-header {
+    font-family: "Sansation-Bold", sans-serif;
+    font-size: 10px;
+    margin-top: 20px;
+}
+
+
+.crb-s3-images-upload {
+    margin-bottom: 50px;
+}

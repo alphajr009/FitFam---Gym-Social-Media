@@ -1,0 +1,68 @@
+.leftBar {
+  flex: 2;
+  position: sticky;
+  height: calc(100vh - 70px);
+  overflow: scroll;
+  background-color: black;
+  color: white;
+  margin-top: 8px;
+
+  @include mobile {
+    display: none;
+  }
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  .gap {
+    margin-top: -14px !important;
+  }
+
+  .container {
+    padding: 20px;
+
+    .menu {
+      display: flex;
+      flex-direction: column;
+      gap: 26px;
+
+      span {
+        font-size: 16px !important;
+        font-weight: 600;
+      }
+
+      .user {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        img {
+          width: 30px;
+          height: 30px;
+          border-radius: 50%;
+          object-fit: cover;
+        }
+
+        span {
+          font-size: 14px;
+        }
+      }
+
+      .item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        text-decoration: none;
+        color: inherit;
+
+        img {
+          width: 30px;
+        }
+
+        span {
+          font-size: 14px;
+        }
+      }
+    }
+  }
+}

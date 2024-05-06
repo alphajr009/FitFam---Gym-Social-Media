@@ -1,0 +1,66 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 24px 15px 20px;
+  height: 50px;
+  border-bottom: 1px solid #393a3b;
+  position: sticky;
+  top: 0;
+  background-color: #131516;
+  box-shadow: 0 0px 6px 0 rgba(0, 0, 0, 0.2);
+  z-index: 999;
+
+  .left {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    span {
+      font-weight: bold;
+      font-size: 20px;
+      color: darkblue;
+    }
+    .search {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border: 1px solid #202327;
+      border-radius: 18px;
+      padding: 5px 12px;
+      background-color: #202327;
+
+      input {
+        border: none;
+        outline: none;
+        width: 220px;
+        color: white;
+        font-size: 0.9375rem;
+      }
+    }
+  }
+
+  .right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    .user {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 500;
+      img {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+      span {
+        color: white;
+      }
+    }
+  }
+}
+.css-i4bv87-MuiSvgIcon-root {
+  color: rgb(113, 118, 123);
+}

@@ -1,0 +1,126 @@
+.share {
+  -webkit-box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
+  -moz-box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
+  box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
+  border-radius: 20px;
+  background-color: #131516;
+  color: white;
+  margin-bottom: 20px;
+  height: 100%;
+
+  .container {
+    padding: 20px;
+    .top {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+      input {
+        border: none;
+        outline: none;
+        background-color: #202327;
+        width: 100%;
+        color: white;
+        border-radius: 20px;
+        padding: 12px 15px;
+      }
+    }
+
+    hr {
+      margin: 20px 0px;
+      border: none;
+      height: 0.1px;
+      background-color: #393a3b;
+    }
+
+    .bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      .left {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+
+        .item {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          cursor: pointer;
+
+          img {
+            height: 22px;
+          }
+
+          span {
+            font-size: 16px;
+            color: #96979a;
+          }
+        }
+      }
+      .right button {
+        border: none;
+        font-size: 15px;
+        color: white;
+        cursor: pointer;
+        background-color: #0386c7;
+        border-radius: 9999px;
+        width: 70px;
+        font-weight: 500;
+      }
+
+      .right button:hover {
+        background-color: #258bbe;
+      }
+    }
+  }
+}
+
+.post-text {
+  font-size: 18px;
+  color: #a2a4a8;
+}
+
+.post-button {
+  background-color: #258bbe;
+  color: #fdfeff;
+  width: 100%;
+}
+
+.post-button.active {
+  background-color: #258bbe; /* Blue when active */
+}
+
+.post-button.deactivated {
+  background-color: #000000; /* Black when deactivated */
+}
+
+.add-media-modal.ant-modal .ant-modal-content {
+  background-color: #131516 !important;
+  width: 700px;
+  right: 200px;
+  height:660px;
+}
+/* text colours */
+:where(.css-dev-only-do-not-override-1kuana8).ant-modal .ant-modal-title {
+    margin: 0;
+    color:#dbdde2;
+    font-weight: 300;
+    font-size: 26px;
+    font-weight: bold;
+    line-height: 2.5;
+    word-wrap: break-word;
+    text-align: center;
+    background-color:#131516;
+  
+}
+
+.media-head-title{
+  font-size: 18px;
+  
+}

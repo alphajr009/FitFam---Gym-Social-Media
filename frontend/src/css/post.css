@@ -1,0 +1,103 @@
+.post {
+  -webkit-box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
+  -moz-box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
+  box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
+  border-radius: 20px;
+  background-color: #131516;
+  color: white;
+}
+
+.post .container {
+  padding: 20px 0px;
+}
+
+.post .container p {
+  padding: 0px 12px;
+}
+
+.post .container .user {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0px 12px;
+}
+
+.post .container .user .userInfo {
+  display: flex;
+  gap: 20px;
+  color: #b0b3b8;
+}
+
+.post .container .user .userInfo img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.post .container .user .userInfo .details {
+  display: flex;
+  flex-direction: column;
+}
+
+.post .container .user .userInfo .details .name {
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.post .container .user .userInfo .details .date {
+  margin-top: 3.4px;
+  font-size: 12px;
+}
+
+.post .container .content {
+  margin: 20px 0px;
+}
+
+.post .container .content img {
+  width: 100%;
+  max-height: 500px;
+  object-fit: cover;
+  margin-top: 20px;
+}
+
+.post .container .info {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 1px 12px 5px 20px;
+}
+
+.post .container .info .item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.css-6hp17o-MuiList-root-MuiMenu-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  outline: 0;
+  padding-left: 10px;
+  padding-right: 10px;
+  background-color:#131516;
+  color: white;
+}
+
+.image-container {
+  display: flex;
+  justify-content: space-between; /* Adjust alignment as needed */
+  width: 600px; /* Adjust width as needed */
+  height: 400px; /* Adjust height as needed */
+  overflow: hidden; /* Hide overflow if images are larger than the container */
+}
+.image-container img {
+  width: 100%;
+  height: auto;
+}
