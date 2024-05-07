@@ -60,7 +60,13 @@ const Post = ({ post }) => { //meal
         </div>
         <div className="content">
           <p>{post.description}</p>
+          <div className="image-container">
+            <div className="image-wrapper">
+              <img src={`/meal/${post.id}-0.jpg`} alt="" />
+              <img src={`/meal/${post.id}-0.jpg`} alt="" />
+            </div>
             <img src={`/meal/${post.id}-0.jpg`} alt="" />
+          </div>
         </div>
         <div className="info">
           <div className="item" onClick={handleLike}>
