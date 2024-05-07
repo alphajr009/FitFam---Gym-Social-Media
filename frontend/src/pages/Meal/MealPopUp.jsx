@@ -118,7 +118,7 @@ function MealPopUp({  }) {
       ) : (
         <div className="crb-s2-images-upload">
           <div className="scrb-s2-iu-wrapper">
-            {Array(1)
+            {Array(3)
               .fill(0)
               .map((_, index) => (
                 <ImageBulkUploader
