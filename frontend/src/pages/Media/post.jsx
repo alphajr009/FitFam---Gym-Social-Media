@@ -9,8 +9,9 @@ import { Link } from "react-router-dom";
 import Comments from "../../components/Comments/Comments";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
+import axios from "axios";
 
-const Post = ({ post }) => { //feed
+const Post = ({ post }) => { 
   const [commentOpen, setCommentOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -18,14 +19,27 @@ const Post = ({ post }) => { //feed
     setAnchorEl(event.currentTarget);
   };
 
-  console.log(post.id);
-  console.log(post.description);
-
   const handleClose = () => {
     setAnchorEl(null);
   };
 
   const liked = false;
+
+  const deletePost = async () => {
+    const id = post.id;
+  
+    try {
+      
+      const response = await axios.delete(
+        `http://localhost:5005/api/v1/feed/delete/${id}` 
+      );
+      console.log("Media deleted:", response.data);
+      window.location.reload();
+    } catch (error) {
+      console.error("Error deleting media:", error);
+    }
+  };
+  
 
   return (
     <div className="post">
@@ -48,16 +62,20 @@ const Post = ({ post }) => { //feed
             onClose={handleClose}
             className="menu-container"
           >
-            <MenuItem onClick={handleClose}>Delete</MenuItem>
+            <MenuItem onClick={deletePost}>Delete</MenuItem>
             <MenuItem onClick={handleClose}>Edit</MenuItem>
             <MenuItem onClick={handleClose}>Share</MenuItem>
           </Menu>
         </div>
         <div className="content">
           <p>{post.description}</p>
-          <img src={`/media/${post.id}-0.jpg`} alt="" />
-          <img src={`/media/${post.id}-1.jpg`} alt="" />
-          <img src={`/media/${post.id}-2.jpg`} alt="" />
+          <div className="image-container">
+            <div className="image-wrapper">
+              <img src={`/media/${post.id}-0.jpg`} alt="" />
+              <img src={`/media/${post.id}-1.jpg`} alt="" />
+            </div>
+            <img src={`/media/${post.id}-2.jpg`} alt="" />
+          </div>
         </div>
         <div className="info">
           <div className="item">

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Form, Input, Switch,Button} from "antd";
 import "../../css/MediaPopUp.css";
-import { Link } from "react-router-dom";
 import ImageBulkUploader from "../../components/ImageBulkUploader";
 import axios from "axios";
 
@@ -11,7 +10,7 @@ function MediaPopUp({  }) {
   const [formValid, setFormValid] = useState(false);
   const [description, setDescription] = useState("");
   const [title, setTitle] = useState("");
-  const [isVideoSelected, setIsVideoSelected] = useState(false); // Set initial state to false
+  const [isVideoSelected, setIsVideoSelected] = useState(false); 
 
   const [imageurls, setImageurls] = useState(Array(3).fill(''));
 
@@ -56,7 +55,7 @@ function MediaPopUp({  }) {
       });
 
       console.log("Media created:", result.data);
-      // window.location.href = "/feed";
+       window.location.href = "/feed";
     } catch (error) {
       console.log("Error creating Media:", error);
     }
