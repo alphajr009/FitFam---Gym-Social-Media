@@ -19,7 +19,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0px 12px;
+  padding: 0px 10px;
 }
 
 .post .container .user .userInfo {
@@ -51,18 +51,18 @@
 }
 
 .post .container .content {
-  margin: 20px 0px;
+  margin: 10px 0px;
 }
 
 .post .container .content .image-container {
   display: flex;
   flex-direction: column; /* Stack images vertically */
-  margin-top: 20px;
+  margin-top: 5px;
 }
 
 .post .container .content .image-container .image-wrapper {
   display: flex;
-  margin-bottom: 10px; /* Add margin between container and third image */
+  margin-bottom: 5px; /* Add margin between container and third image */
 }
 
 .post .container .content .image-container .image-wrapper img {
@@ -76,7 +76,7 @@
 .post .container .content .image-container img:last-child {
   width: 100%; /* Set width to 100% for the last image to span full width */
   margin-right: 0; /* Remove margin for the last image */
-  max-height: 400px;
+  max-height: 350px;
   
 }
 
