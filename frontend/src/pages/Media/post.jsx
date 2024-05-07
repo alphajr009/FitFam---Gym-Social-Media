@@ -10,16 +10,13 @@ import Comments from "../../components/Comments/Comments";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 
-const Post = ({ post }) => { //feed
+const Post = ({ post }) => { 
   const [commentOpen, setCommentOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
-
-  console.log(post.id);
-  console.log(post.description);
 
   const handleClose = () => {
     setAnchorEl(null);
@@ -55,9 +52,13 @@ const Post = ({ post }) => { //feed
         </div>
         <div className="content">
           <p>{post.description}</p>
-          <img src={`/media/${post.id}-0.jpg`} alt="" />
-          <img src={`/media/${post.id}-1.jpg`} alt="" />
-          <img src={`/media/${post.id}-2.jpg`} alt="" />
+          <div className="image-container">
+            <div className="image-wrapper">
+              <img src={`/media/${post.id}-0.jpg`} alt="" />
+              <img src={`/media/${post.id}-1.jpg`} alt="" />
+            </div>
+            <img src={`/media/${post.id}-2.jpg`} alt="" />
+          </div>
         </div>
         <div className="info">
           <div className="item">
