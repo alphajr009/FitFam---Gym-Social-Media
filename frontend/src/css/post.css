@@ -108,3 +108,19 @@
   background-color:#131516;
   color: white;
 }
+
+:where(.css-dev-only-do-not-override-1kuana8).ant-form-item .ant-form-item-label >label::after {
+
+  position: relative;
+  margin-block: 0;
+  margin-inline-start: 2px;
+  margin-inline-end: 8px;
+}
+
+:where(.css-dev-only-do-not-override-1kuana8).ant-form-item .ant-form-item-label >label::after {
+  content: "";
+  position: relative;
+  margin-block: 0;
+  margin-inline-start: 2px;
+  margin-inline-end: 8px;
+}

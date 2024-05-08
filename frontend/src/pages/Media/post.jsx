@@ -10,10 +10,15 @@ import Comments from "../../components/Comments/Comments";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import axios from "axios";
+import { Button, Modal, Input, Form } from "antd";
 
-const Post = ({ post }) => { 
+const { TextArea } = Input;
+
+const Post = ({ post }) => {
   const [commentOpen, setCommentOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
+  const [isEditModalVisible, setIsEditModalVisible] = useState(false);
+  const [editedPostContent, setEditedPostContent] = useState(post.description);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -23,15 +28,35 @@ const Post = ({ post }) => {
     setAnchorEl(null);
   };
 
-  const liked = false;
+  const handleEditClick = () => {
+    setIsEditModalVisible(true);
+    handleClose();
+  };
+
+  const handleEditModalCancel = () => {
+    setIsEditModalVisible(false);
+  };
+
+  const editDescription = async () => {
+    const id = post.id;
+    try {
+      const response = await axios.put(
+        `http://localhost:5005/api/v1/feed/edit/${id}`,
+        { description: editedPostContent } // Assuming you need to send the updated description
+      );
+      console.log("Post edited:", response.data);
+      window.location.reload();
+    } catch (error) {
+      console.error("Error editing post:", error);
+    }
+  };
 
   const deletePost = async () => {
     const id = post.id;
-  
+
     try {
-      
       const response = await axios.delete(
-        `http://localhost:5005/api/v1/feed/delete/${id}` 
+        `http://localhost:5005/api/v1/feed/delete/${id}`
       );
       console.log("Media deleted:", response.data);
       window.location.reload();
@@ -39,7 +64,6 @@ const Post = ({ post }) => {
       console.error("Error deleting media:", error);
     }
   };
-  
 
   return (
     <div className="post">
@@ -63,7 +87,7 @@ const Post = ({ post }) => {
             className="menu-container"
           >
             <MenuItem onClick={deletePost}>Delete</MenuItem>
-            <MenuItem onClick={handleClose}>Edit</MenuItem>
+            <MenuItem onClick={handleEditClick}>Edit</MenuItem>
             <MenuItem onClick={handleClose}>Share</MenuItem>
           </Menu>
         </div>
@@ -79,8 +103,8 @@ const Post = ({ post }) => {
         </div>
         <div className="info">
           <div className="item">
-            {liked ? <FavoriteOutlinedIcon /> : <FavoriteBorderOutlinedIcon />}
-            {post.likes}
+            {/* {liked ? <FavoriteOutlinedIcon /> : <FavoriteBorderOutlinedIcon />}
+            {post.likes} */}
           </div>
           <div className="item" onClick={() => setCommentOpen(!commentOpen)}>
             <TextsmsOutlinedIcon />
@@ -93,6 +117,42 @@ const Post = ({ post }) => {
         </div>
         {commentOpen && <Comments />}
       </div>
+      <Modal
+        title="Edit Post"
+        visible={isEditModalVisible}
+        onOk={editDescription}
+        onCancel={handleEditModalCancel}
+        footer={null}
+      >
+        <div className="userInfo">
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/e/e0/Userimage.png"
+            alt=""
+          />
+          <div className="details">
+            <span className="name">Gayathri Gamage</span>
+          </div>
+        </div>
+        <Form.Item label="What's on your mind Gayathri?">
+          <TextArea
+            style={{ height: "150px", width: "800px" }}
+            value={editedPostContent}
+            onChange={(e) => setEditedPostContent(e.target.value)}
+            placeholder="Enter your description"
+            className="custom-input"
+          />
+        </Form.Item>
+        
+        <Button
+            key="submit"
+            type="primary"
+            className="post-button"
+            onClick={editDescription}
+          >
+            Save
+          </Button>
+        
+      </Modal>
     </div>
   );
 };
