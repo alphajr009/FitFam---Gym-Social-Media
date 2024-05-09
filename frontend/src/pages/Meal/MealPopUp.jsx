@@ -4,10 +4,15 @@ import "../../css/MediaPopUp.css";
 import { Link } from "react-router-dom";
 import ImageBulkUploader from "../../components/ImageBulkUploader";
 import axios from "axios";
+import defaultimg from "../../assests/default.png";
+import male from "../../assests/male.png";
+import female from "../../assests/female.png";
+
 
 function MealPopUp({  }) {
 
   const user = JSON.parse(localStorage.getItem("currentUser"));
+  const firstName = user.name.split(" ")[0];
   const [formValid, setFormValid] = useState(false);
   const [description, setDescription] = useState("");
   const [title, setTitle] = useState("");
@@ -85,15 +90,28 @@ function MealPopUp({  }) {
     imageurls,
   ]);
 
+  
+  const getUserImage = () => {
+    if (!user || !user.gender) {
+      return defaultimg;
+    } else if (user.gender === "male") {
+      return male;
+    } else if (user.gender === "female") {
+      return female;
+    } else {
+      return defaultimg;
+    }
+  };
+
   return (
     <Form layout="vertical">
       <div className="userInfo">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/e/e0/Userimage.png" alt="" />
+      <img src={getUserImage()} alt="" />
         <div className="details">
           <span className="name">shanuka</span>
         </div>
       </div>
-      <Form.Item label={<span className="media-head-title">What's on your mind?</span>}>
+      <Form.Item label={<span className="media-head-title">What's on your mind {firstName}?</span>}>
         <Input.TextArea
           style={{ height: "150px", width: "800px" }}
           value={description}
