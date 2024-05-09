@@ -3,16 +3,22 @@ import { Form, Input, Switch,Button} from "antd";
 import "../../css/MediaPopUp.css";
 import ImageBulkUploader from "../../components/ImageBulkUploader";
 import axios from "axios";
+import defaultimg from "../../assests/default.png";
+import male from "../../assests/male.png";
+import female from "../../assests/female.png";
 
 function MediaPopUp({  }) {
 
   const user = JSON.parse(localStorage.getItem("currentUser"));
+  const firstName = user.name.split(" ")[0];
   const [formValid, setFormValid] = useState(false);
   const [description, setDescription] = useState("");
   const [title, setTitle] = useState("");
   const [isVideoSelected, setIsVideoSelected] = useState(false); 
 
   const [imageurls, setImageurls] = useState(Array(3).fill(''));
+
+
 
   const onImageUpload = (index, imageFile) => {
     setImageurls((prevImageurls) => {
@@ -84,15 +90,28 @@ function MediaPopUp({  }) {
     imageurls,
   ]);
 
+  const getUserImage = () => {
+    if (!user || !user.gender) {
+      return defaultimg;
+    } else if (user.gender === "male") {
+      return male;
+    } else if (user.gender === "female") {
+      return female;
+    } else {
+      return defaultimg;
+    }
+  };
+
+
   return (
     <Form layout="vertical">
       <div className="userInfo">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/e/e0/Userimage.png" alt="" />
+        <img src={getUserImage()} alt="" />
         <div className="details">
-          <span className="name">Gayathri Gamage</span>
+        <span className="name">{user.name}</span>
         </div>
       </div>
-      <Form.Item label={<span className="media-head-title">What's on your mind Gayathri?</span>}>
+      <Form.Item label={<span className="media-head-title">What's on your mind {firstName}?</span>}>
         <Input.TextArea
           style={{ height: "150px", width: "800px" }}
           value={description}

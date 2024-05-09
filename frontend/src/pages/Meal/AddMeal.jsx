@@ -6,9 +6,17 @@ import { Button , Modal} from "antd";
 import axios from 'axios';
 import MealPopUp from "../Meal/MealPopUp";
 import "../../css/AddWorkouts.css";
+import defaultimg from "../../assests/default.png";
+import male from "../../assests/male.png";
+import female from "../../assests/female.png";
+
 
 
 function AddMeal() {
+    
+  const user = JSON.parse(localStorage.getItem("currentUser"));
+  const firstName = user.name.split(" ")[0];
+
   const [mealDescription, setMealDescription] = useState('');
   const [mealTitle, setMealTitle] = useState('');
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -35,12 +43,25 @@ function AddMeal() {
     }
   };
 
+  
+  const getUserImage = () => {
+    if (!user || !user.gender) {
+      return defaultimg;
+    } else if (user.gender === "male") {
+      return male;
+    } else if (user.gender === "female") {
+      return female;
+    } else {
+      return defaultimg;
+    }
+  };
+
   return (
 <div className="share">
       <div className="container">
         <div className="top">
-          <img
-            src="https://www.pinpng.com/pngs/m/80-804746_profile-icon-female-user-icon-png-transparent-png.png"
+        <img
+            src={getUserImage()}
             alt=""
           />
           <input
@@ -48,7 +69,7 @@ function AddMeal() {
             value={mealDescription}
             onChange={(e) => setMealDescription(e.target.value)}
             className="post-text"
-            placeholder="What's on your mind ?"
+            placeholder={"What's on your mind " + firstName}
             onClick={() => openModal(<MealPopUp />)}
           />
         </div>

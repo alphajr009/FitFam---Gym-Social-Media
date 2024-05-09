@@ -11,6 +11,9 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import axios from "axios";
 import { Button, Modal, Input, Form } from "antd";
+import defaultimg from "../../assests/default.png";
+import male from "../../assests/male.png";
+import female from "../../assests/female.png";
 
 const { TextArea } = Input;
 
@@ -19,6 +22,9 @@ const Post = ({ post }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [isEditModalVisible, setIsEditModalVisible] = useState(false);
   const [editedPostContent, setEditedPostContent] = useState(post.description);
+
+  const user = JSON.parse(localStorage.getItem("currentUser"));
+  const firstName = user.name.split(" ")[0];
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -42,7 +48,7 @@ const Post = ({ post }) => {
     try {
       const response = await axios.put(
         `http://localhost:5005/api/v1/feed/edit/${id}`,
-        { description: editedPostContent } // Assuming you need to send the updated description
+        { description: editedPostContent } 
       );
       console.log("Post edited:", response.data);
       window.location.reload();
@@ -65,17 +71,29 @@ const Post = ({ post }) => {
     }
   };
 
+  const getUserImage = () => {
+    if (!user || !user.gender) {
+      return defaultimg;
+    } else if (user.gender === "male") {
+      return male;
+    } else if (user.gender === "female") {
+      return female;
+    } else {
+      return defaultimg;
+    }
+  };
   return (
     <div className="post">
       <div className="container">
         <div className="user">
           <div className="userInfo">
-            <img src={post.profilePic} alt="" />
+            <img src={getUserImage()} alt="" />
             <div className="details">
               <Link
                 to={`/profile/${post.userId}`}
                 style={{ textDecoration: "none", color: "inherit" }}
               ></Link>
+                 <span className="name">{user.name}</span>
               <span className="date">1 min ago</span>
             </div>
           </div>
@@ -126,14 +144,14 @@ const Post = ({ post }) => {
       >
         <div className="userInfo">
           <img
-            src="https://upload.wikimedia.org/wikipedia/commons/e/e0/Userimage.png"
+            src={getUserImage()}
             alt=""
           />
           <div className="details">
-            <span className="name">Gayathri Gamage</span>
+          <span className="name">{user.name}</span>
           </div>
         </div>
-        <Form.Item label="What's on your mind Gayathri?">
+        <Form.Item label={"What's on your mind " + firstName} >
           <TextArea
             style={{ height: "150px", width: "800px" }}
             value={editedPostContent}

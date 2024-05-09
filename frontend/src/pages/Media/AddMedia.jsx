@@ -5,12 +5,19 @@ import { Button, Modal } from "antd";
 import axios from "axios";
 import MediaPopUp from "./MediaPopUp";
 import "../../css/AddWorkouts.css";
+import defaultimg from "../../assests/default.png";
+import male from "../../assests/male.png";
+import female from "../../assests/female.png";
+
 
 function AddMedia() {
   const [mediaDescription, setMediaDescription] = useState("");
   const [mediaTitle, setMediaTitle] = useState("");
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [modalContent, setModalContent] = useState(null);
+
+  const user = JSON.parse(localStorage.getItem("currentUser"));
+  const firstName = user.name.split(" ")[0];
 
   const openModal = (content) => {
     setModalContent(content);
@@ -37,12 +44,24 @@ function AddMedia() {
     }
   };
 
+  const getUserImage = () => {
+    if (!user || !user.gender) {
+      return defaultimg;
+    } else if (user.gender === "male") {
+      return male;
+    } else if (user.gender === "female") {
+      return female;
+    } else {
+      return defaultimg;
+    }
+  };
+
   return (
     <div className="share">
       <div className="container">
         <div className="top">
           <img
-            src="https://www.pinpng.com/pngs/m/80-804746_profile-icon-female-user-icon-png-transparent-png.png"
+            src={getUserImage()}
             alt=""
           />
           <input
@@ -50,7 +69,7 @@ function AddMedia() {
             value={mediaDescription}
             onChange={(e) => setMediaDescription(e.target.value)}
             className="post-text"
-            placeholder="What's on your mind Gayathri?"
+            placeholder={"What's on your mind " + firstName}
             onClick={() => openModal(<MediaPopUp />)}
           />
         </div>
