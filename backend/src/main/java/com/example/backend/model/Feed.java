@@ -14,10 +14,12 @@ public class Feed {
     private String title;
     private String userID;
     private String description;
-    private int likes;
+   // private int likes;
     private List<String> likedUsers;
     private List<Comment> comments;
     private LocalDateTime timestamp;
+
+    private Integer likes = 0;
 
     public Feed() {
     }

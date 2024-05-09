@@ -25,7 +25,6 @@ const Post = ({ post }) => {
 
   const user = JSON.parse(localStorage.getItem("currentUser"));
   const firstName = user.name.split(" ")[0];
-
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -144,7 +143,7 @@ const Post = ({ post }) => {
       >
         <div className="userInfo">
           <img
-            src={getUserImage()}
+            src="https://upload.wikimedia.org/wikipedia/commons/e/e0/Userimage.png"
             alt=""
           />
           <div className="details">
