@@ -73,3 +73,17 @@
 .slick-next:before {
   color: black !important;
 }
+
+.sm-content p {
+  margin-top: -15px !important;
+  color: #787878 !important;
+}
+
+.sm-content .ant-form-item .ant-form-item-label > label {
+  font-size: 16px !important;
+}
+
+.sm-content img {
+  margin-left: 160px;
+  margin-bottom: 20px;
+}
