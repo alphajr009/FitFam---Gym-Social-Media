@@ -1,8 +1,22 @@
 import React, { useState, useEffect } from "react";
-import { Modal, Form, Input, Row, Col, Select, Button } from "antd";
+import { Card, Modal, Form, Input, Row, Col, Select, Button } from "antd";
 import "../../css/stories.css";
 import ImageUploader from "../ImageUploader";
 import axios from "axios";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
+const { Meta } = Card;
+
+function Story({ story }) {
+  return (
+    <div className="sci">
+      <img className="story-card-image" src={story.img} alt={story.name} />
+      <p>{story.name}</p>
+    </div>
+  );
+}
 
 function Stories() {
   const user = JSON.parse(localStorage.getItem("currentUser"));
@@ -133,6 +147,40 @@ function Stories() {
     },
   ];
 
+  var settings = {
+    infinite: false,
+    speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 2,
+    initialSlide: 0,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+          infinite: true,
+          dots: true,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          initialSlide: 2,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  };
+
   return (
     <div className="stories">
       <div className="story" onClick={handleCreateStory}>
@@ -145,12 +193,17 @@ function Stories() {
           <button>+</button>
         </div>
       </div>
-      {stories.map((story) => (
-        <div className="story-all" key={story.id}>
-          <img src={story.img} alt="" />
-          <span>{story.name}</span>
-        </div>
-      ))}
+
+      <div className="all-stories">
+        <Slider {...settings}>
+          {stories.map((story) => (
+            <div key={story.id}>
+              <Story story={story} />
+            </div>
+          ))}
+        </Slider>
+      </div>
+
       <Modal
         visible={isModalVisible}
         onOk={handleOk}
