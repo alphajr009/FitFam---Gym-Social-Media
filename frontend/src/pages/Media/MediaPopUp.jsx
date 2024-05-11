@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Form, Input, Switch, Button } from "antd";
+import { Form, Input, Switch, Button, message } from "antd";
 import "../../css/MediaPopUp.css";
 import ImageBulkUploader from "../../components/ImageBulkUploader";
 import VideoUploader from "../../components/VideoUploader";
@@ -16,7 +16,6 @@ function MediaPopUp({}) {
   const [title, setTitle] = useState("");
   const [isVideoSelected, setIsVideoSelected] = useState(false);
   const [isVideo, setisVideo] = useState(false);
-
   const [imageurls, setImageurls] = useState(Array(3).fill(""));
   const [imageurl, setImageurl] = useState("");
 
@@ -34,15 +33,13 @@ function MediaPopUp({}) {
     });
   };
 
-  const handleTickButtonClick = () => {};
-
   const handleVideoSelect = () => {
     setIsVideoSelected(!isVideoSelected);
     setisVideo(!isVideoSelected);
     console.log(!isVideo);
   };
 
-  async function createMedia() {
+  const createMedia = async () => {
     console.log(imageurls);
 
     const formData = new FormData();
@@ -70,24 +67,19 @@ function MediaPopUp({}) {
     } catch (error) {
       console.log("Error creating Media:", error);
     }
-  }
+  };
 
   const handlePost = () => {
-    createMedia();
-  };
-
-  const handleCancel = () => {
-    setDescription("");
-    setImageurls("");
-  };
-
-  const handleFormChange = () => {
-    setFormValid(description && imageurls !== "");
+    if (description || imageurls.some(url => url) || imageurl) {
+      createMedia();
+    } else {
+      message.error('Please enter a description or upload photos or a video.');
+    }
   };
 
   useEffect(() => {
-    handleFormChange();
-  }, [description, imageurls]);
+    setFormValid(description || imageurls.some(url => url) || imageurl);
+  }, [description, imageurls, imageurl]);
 
   const getUserImage = () => {
     if (!user || !user.gender) {
@@ -159,6 +151,7 @@ function MediaPopUp({}) {
         type="primary"
         className="post-button"
         onClick={handlePost}
+        disabled={!formValid}
       >
         Post
       </Button>
