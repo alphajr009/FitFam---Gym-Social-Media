@@ -108,7 +108,7 @@ function MealPopUp({  }) {
       <div className="userInfo">
       <img src={getUserImage()} alt="" />
         <div className="details">
-          <span className="name">shanuka</span>
+        <span className="name">{user.name}</span>
         </div>
       </div>
       <Form.Item label={<span className="media-head-title">What's on your mind {firstName}?</span>}>
