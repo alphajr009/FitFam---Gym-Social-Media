@@ -44,10 +44,11 @@ const Post = ({ post }) => {
 
   const editDescription = async () => {
     const id = post.id;
+
     try {
       const response = await axios.put(
         `http://localhost:5005/api/v1/feed/edit/${id}`,
-        { description: editedPostContent }
+        { description: editedPostContent, isVideo: post.video }
       );
       console.log("Post edited:", response.data);
       window.location.reload();
@@ -85,6 +86,7 @@ const Post = ({ post }) => {
   const handleLike = () => {
     setLiked(!liked);
   };
+
   return (
     <div className="post">
       <div className="container">
@@ -115,6 +117,12 @@ const Post = ({ post }) => {
         <div className="content">
           <p>{post.description}</p>
           <div className="image-container">
+            {post.video && (
+              <video controls>
+                <source src={`/media/${post.id}.mp4`} type="video/mp4" />
+              </video>
+            )}
+
             <div className="image-wrapper">
               <img src={`/media/${post.id}-0.jpg`} alt="" />
               <img src={`/media/${post.id}-1.jpg`} alt="" />

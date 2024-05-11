@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Form, Input, Switch,Button} from "antd";
+import { Form, Input, Switch, Button } from "antd";
 import "../../css/MediaPopUp.css";
 import { Link } from "react-router-dom";
 import ImageBulkUploader from "../../components/ImageBulkUploader";
@@ -8,9 +8,7 @@ import defaultimg from "../../assests/default.png";
 import male from "../../assests/male.png";
 import female from "../../assests/female.png";
 
-
-function MealPopUp({  }) {
-
+function MealPopUp({}) {
   const user = JSON.parse(localStorage.getItem("currentUser"));
   const firstName = user.name.split(" ")[0];
   const [formValid, setFormValid] = useState(false);
@@ -18,20 +16,18 @@ function MealPopUp({  }) {
   const [title, setTitle] = useState("");
   const [isVideoSelected, setIsVideoSelected] = useState(false);
 
-  const [imageurls, setImageurls] = useState(Array(1).fill(''));
+  const [imageurls, setImageurls] = useState(Array(1).fill(""));
 
   const onImageUpload = (index, imageFile) => {
     setImageurls((prevImageurls) => {
-        const newImageurls = [...prevImageurls];
-        newImageurls[index] = imageFile;
-        console.log(`Image at index ${index}:`, imageFile);
-        return newImageurls;
+      const newImageurls = [...prevImageurls];
+      newImageurls[index] = imageFile;
+      console.log(`Image at index ${index}:`, imageFile);
+      return newImageurls;
     });
-};
-
-
-  const handleTickButtonClick = () => {
   };
+
+  const handleTickButtonClick = () => {};
 
   const handleVideoSelect = () => {
     setIsVideoSelected(!isVideoSelected);
@@ -44,16 +40,13 @@ function MealPopUp({  }) {
     formData.append("userid", user._id);
     formData.append("description", description);
 
-    
-
     imageurls.forEach((image, index) => {
       if (image) {
-          formData.append("images", image, `${user._id}-${index}.jpg`);
+        formData.append("images", image, `${user._id}-${index}.jpg`);
       }
-  });
+    });
 
-  console.log('imageurls:', imageurls);
-    
+    console.log("imageurls:", imageurls);
 
     try {
       const result = await axios.post("api/v1/mealplans/addMeal", formData, {
@@ -77,20 +70,13 @@ function MealPopUp({  }) {
   };
 
   const handleFormChange = () => {
-    setFormValid(
-      description &&
-        imageurls !== ""
-    );
+    setFormValid(description && imageurls !== "");
   };
 
   useEffect(() => {
     handleFormChange();
-  }, [
-    description,
-    imageurls,
-  ]);
+  }, [description, imageurls]);
 
-  
   const getUserImage = () => {
     if (!user || !user.gender) {
       return defaultimg;
@@ -106,12 +92,18 @@ function MealPopUp({  }) {
   return (
     <Form layout="vertical">
       <div className="userInfo">
-      <img src={getUserImage()} alt="" />
+        <img src={getUserImage()} alt="" />
         <div className="details">
-        <span className="name">{user.name}</span>
+          <span className="name">{user.name}</span>
         </div>
       </div>
-      <Form.Item label={<span className="media-head-title">What's on your mind {firstName}?</span>}>
+      <Form.Item
+        label={
+          <span className="media-head-title">
+            What's on your mind {firstName}?
+          </span>
+        }
+      >
         <Input.TextArea
           style={{ height: "150px", width: "800px" }}
           value={description}
@@ -120,18 +112,18 @@ function MealPopUp({  }) {
           }}
           placeholder="Enter your description"
           className="custom-input"
-         
         />
       </Form.Item>
-      {/* <Form.Item>
-        <span className="media-head-title" style={{ marginRight: 10 }}>Upload Video</span>
+      <Form.Item>
+        <span className="media-head-title" style={{ marginRight: 10 }}>
+          Upload Video
+        </span>
         <Switch checked={isVideoSelected} onChange={handleVideoSelect} />
-      </Form.Item> */}
+      </Form.Item>
 
       {isVideoSelected ? (
         <div className="crb-s3-images-upload">
-          <div className="scrb-s3-iu-wrapper">
-          </div>
+          <div className="scrb-s3-iu-wrapper"></div>
         </div>
       ) : (
         <div className="crb-s2-images-upload">
@@ -148,16 +140,15 @@ function MealPopUp({  }) {
           </div>
         </div>
       )}
-       <Button
-            key="submit"
-            type="primary"
-            className="post-button"
-            onClick={handlePost}
-          >
-            Post
-          </Button>
+      <Button
+        key="submit"
+        type="primary"
+        className="post-button"
+        onClick={handlePost}
+      >
+        Post
+      </Button>
     </Form>
-    
   );
 }
 
