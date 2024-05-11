@@ -14,10 +14,14 @@ public class Feed {
     private String title;
     private String userID;
     private String description;
-    private int likes;
+
+    private boolean isVideo;
+   // private int likes;
     private List<String> likedUsers;
     private List<Comment> comments;
     private LocalDateTime timestamp;
+
+    private Integer likes = 0;
 
     public Feed() {
     }
@@ -31,6 +35,7 @@ public class Feed {
         this.likedUsers = likedUsers;
         this.comments = comments;
         this.timestamp = timestamp;
+        this.isVideo = isVideo;
     }
 
     public Feed (String description,String userID){
@@ -43,6 +48,14 @@ public class Feed {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public boolean isVideo() {
+        return isVideo;
+    }
+
+    public void setVideo(boolean video) {
+        isVideo = video;
     }
 
     public String getTitle() {
@@ -109,6 +122,7 @@ public class Feed {
                 ", userID='" + userID + '\'' +
                 ", description='" + description + '\'' +
                 ", likes=" + likes +
+                ", isVideo=" + isVideo +
                 ", likedUsers=" + likedUsers +
                 ", comments=" + comments +
                 ", timestamp=" + timestamp +

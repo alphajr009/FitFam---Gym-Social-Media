@@ -13,6 +13,9 @@ public interface StatusService {
 
 
     List<Status> getAllStatus();
+
+    void deleteExpiredStatuses();
+
 }
 
 

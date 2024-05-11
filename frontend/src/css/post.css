@@ -19,7 +19,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0px 12px;
+  padding: 0px 10px;
 }
 
 .post .container .user .userInfo {
@@ -51,14 +51,33 @@
 }
 
 .post .container .content {
-  margin: 20px 0px;
+  margin: 10px 0px;
 }
 
-.post .container .content img {
-  width: 100%;
-  max-height: 500px;
+.post .container .content .image-container {
+  display: flex;
+  flex-direction: column; /* Stack images vertically */
+  margin-top: 5px;
+}
+
+.post .container .content .image-container .image-wrapper {
+  display: flex;
+  margin-bottom: 5px; /* Add margin between container and third image */
+}
+
+.post .container .content .image-container .image-wrapper img {
+  width: calc(50% - 5px); /* Set width to 50% minus some margin for side by side images */
+  max-height: 400px; /* Adjust as needed */
   object-fit: cover;
-  margin-top: 20px;
+  margin-right: 10px; /* Add margin between images */
+
+}
+
+.post .container .content .image-container img:last-child {
+  width: 100%; /* Set width to 100% for the last image to span full width */
+  margin-right: 0; /* Remove margin for the last image */
+  max-height: 350px;
+  
 }
 
 .post .container .info {
@@ -90,14 +109,33 @@
   color: white;
 }
 
-.image-container {
-  display: flex;
-  justify-content: space-between; /* Adjust alignment as needed */
-  width: 600px; /* Adjust width as needed */
-  height: 400px; /* Adjust height as needed */
-  overflow: hidden; /* Hide overflow if images are larger than the container */
+:where(.css-dev-only-do-not-override-1kuana8).ant-form-item .ant-form-item-label >label::after {
+
+  position: relative;
+  margin-block: 0;
+  margin-inline-start: 2px;
+  margin-inline-end: 8px;
 }
-.image-container img {
-  width: 100%;
-  height: auto;
+
+:where(.css-dev-only-do-not-override-1kuana8).ant-form-item .ant-form-item-label >label::after {
+  content: "";
+  position: relative;
+  margin-block: 0;
+  margin-inline-start: 2px;
+  margin-inline-end: 8px;
+}
+
+/* Enabled state */
+.post-button {
+  background-color: #1890ff; /* Blue color */
+  border-color: #1890ff;
+  color: #fff; /* White color */
+}
+
+/* Disabled state */
+.post-button:disabled {
+  background-color: #505151; /* Light grey color */
+  border-color:  #505151; 
+  color: #ccc; /* Light grey color */
+  cursor: not-allowed;
 }

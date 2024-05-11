@@ -54,21 +54,34 @@ public class FeedController {
     public ResponseEntity<String> addFeed(
             @RequestParam("userid") String userId,
             @RequestParam("description") String description,
-            @RequestParam("images") List<MultipartFile> images){
+            @RequestParam("isVideo") Boolean isVideo,
+            @RequestParam(value = "video", required = false) MultipartFile video,
+            @RequestParam(value = "images", required = false) List<MultipartFile> images) {
 
         try {
             Feed newFeed = new Feed();
             newFeed.setUserID(userId);
             newFeed.setDescription(description);
-
+            newFeed.setVideo(isVideo);
+            String uploadsDir = "media/";
             Feed savedFeed = feedService.createFeed(newFeed);
 
-            // Save images
-            for (int i = 0; i < images.size(); i++) {
-                MultipartFile image = images.get(i);
-                String fileName = savedFeed.getId() + "-" + i + ".jpg";
-                Path path = Paths.get("media/" + fileName);
-                Files.write(path, image.getBytes());
+            // Save video if present
+            if (video != null && !video.isEmpty()) {
+                String mealId = savedFeed.getId();
+                String videoName = mealId + ".mp4";
+                Path videoPath = Paths.get(uploadsDir, videoName);
+                Files.write(videoPath, video.getBytes());
+            }
+
+            // Save images if present
+            if (images != null && !images.isEmpty()) {
+                for (int i = 0; i < images.size(); i++) {
+                    MultipartFile image = images.get(i);
+                    String fileName = savedFeed.getId() + "-" + i + ".jpg";
+                    Path path = Paths.get("media/" + fileName);
+                    Files.write(path, image.getBytes());
+                }
             }
 
             return ResponseEntity.status(HttpStatus.OK).body("Feed Created Successfully");
@@ -78,6 +91,7 @@ public class FeedController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to create feed");
         }
     }
+
 
 
 }
