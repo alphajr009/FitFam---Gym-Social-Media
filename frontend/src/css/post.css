@@ -124,3 +124,18 @@
   margin-inline-start: 2px;
   margin-inline-end: 8px;
 }
+
+/* Enabled state */
+.post-button {
+  background-color: #1890ff; /* Blue color */
+  border-color: #1890ff;
+  color: #fff; /* White color */
+}
+
+/* Disabled state */
+.post-button:disabled {
+  background-color: #505151; /* Light grey color */
+  border-color:  #505151; 
+  color: #ccc; /* Light grey color */
+  cursor: not-allowed;
+}
