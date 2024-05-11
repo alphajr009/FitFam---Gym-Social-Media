@@ -85,7 +85,6 @@ function Stories() {
         console.error("Error fetching stories:", error);
       }
     }
-
     fetchStories();
   }, []);
 

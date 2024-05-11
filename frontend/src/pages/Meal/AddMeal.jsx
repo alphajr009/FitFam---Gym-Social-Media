@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Image from "../../assests/addMeal/addImage.png";
 import Video from "../../assests/addMeal/addVideo.png";
-// import Meal from "../../assests/addMeal/meal.png";
 import { Button , Modal} from "antd";
 import axios from 'axios';
 import MealPopUp from "../Meal/MealPopUp";
@@ -32,6 +31,12 @@ function AddMeal() {
   };
 
   const handlePost = async () => {
+    console.log("handlePost function called");
+    if (!mealDescription.trim()) {
+      alert("Please enter meal description."); 
+      return; 
+    }
+  
     try {
       const response = await axios.post('http://localhost:5005/api/v1/mealplans/create', {
         description: mealDescription,
@@ -42,7 +47,7 @@ function AddMeal() {
       console.error('Error creating meal plan:', error);
     }
   };
-
+  
   
   const getUserImage = () => {
     if (!user || !user.gender) {
@@ -82,12 +87,6 @@ function AddMeal() {
                 <span>Add Image</span>
               </div>
             </label>
-            {/* <label htmlFor="file">
-              <div className="item" onClick={() => openModal(<MealPopUp />)}>
-                <img src={Video} alt="" />
-                <span>Add Video</span>
-              </div>
-            </label> */}
           </div>
           <div className="right">
             <Button type="primary" onClick={handlePost}>

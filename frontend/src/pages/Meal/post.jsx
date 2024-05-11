@@ -24,6 +24,8 @@ const Post = ({ post }) => {
   const [liked, setLiked] = useState(false);
   const [isEditModalVisible, setIsEditModalVisible] = useState(false);
   const [editedPostContent, setEditedPostContent] = useState(post.description);
+  const [sharedContent, setSharedContent] = useState(""); // State to store shared content
+  const [showSharedModal, setShowSharedModal] = useState(false); // State to control the visibility of the shared modal
 
   const user = JSON.parse(localStorage.getItem("currentUser"));
   const firstName = user.name.split(" ")[0];
@@ -90,6 +92,26 @@ const Post = ({ post }) => {
       return defaultimg;
     }
   };
+
+  // Function to handle sharing of the post within the app
+  const handleSharePost = () => {
+    setSharedContent(post.description); // Set the shared content
+    setShowSharedModal(true); // Show the shared modal
+  };
+
+    const sharePost = async () => {
+    try {
+      await navigator.share({
+        title: "Check out this post!",
+        text: post.description,
+        url: window.location.href,
+      });
+      console.log("Post shared successfully");
+    } catch (error) {
+      console.error("Error sharing post:", error);
+    }
+  };
+
   return (
     <div className="post">
       <div className="container">
@@ -115,17 +137,15 @@ const Post = ({ post }) => {
           >
             <MenuItem onClick={deletePost}>Delete</MenuItem>
             <MenuItem onClick={handleEditClick}>Edit</MenuItem>
-            <MenuItem onClick={handleClose}>Share</MenuItem>
+            <MenuItem onClick={handleSharePost}>Share</MenuItem> {/* Call handleSharePost for internal sharing */}
           </Menu>
         </div>
         <div className="content">
           <p>{post.description}</p>
           <div className="image-container">
             <div className="image-wrapper">
-              <img src={`/meal/${post.id}-0.jpg`} alt="" />
-              <img src={`/meal/${post.id}-0.jpg`} alt="" />
-            </div>
             <img src={`/meal/${post.id}-0.jpg`} alt="" />
+            </div>
           </div>
         </div>
         <div className="info">
@@ -183,6 +203,22 @@ const Post = ({ post }) => {
           </Button>
         
       </Modal>
+      <Modal
+        title="Shared Post"
+        visible={showSharedModal}
+        onCancel={() => setShowSharedModal(false)}
+        footer={[
+          <Button key="share" onClick={sharePost}>
+            Share
+          </Button>,
+          <Button key="close" onClick={() => setShowSharedModal(false)}>
+            Close
+          </Button>,
+        ]}
+      >
+        <p>{sharedContent}</p>
+      </Modal>
+
     </div>
   );
 };

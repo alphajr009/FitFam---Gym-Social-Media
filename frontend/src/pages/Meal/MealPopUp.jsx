@@ -60,7 +60,7 @@ function MealPopUp({  }) {
         headers: { "Content-Type": "multipart/form-data" },
       });
 
-      console.log("Media created:", result.data);
+      console.log("Meal created:", result.data);
       window.location.href = "/meal";
     } catch (error) {
       console.log("Error creating Media:", error);
@@ -136,7 +136,7 @@ function MealPopUp({  }) {
       ) : (
         <div className="crb-s2-images-upload">
           <div className="scrb-s2-iu-wrapper">
-            {Array(3)
+            {Array(1)
               .fill(0)
               .map((_, index) => (
                 <ImageBulkUploader
