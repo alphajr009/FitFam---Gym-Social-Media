@@ -13,6 +13,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/story")
@@ -62,6 +63,43 @@ public class StatusController {
         List<Status> allStatus = statusService.getAllStatus();
         return ResponseEntity.ok(allStatus);
     }
+
+    @PatchMapping("/updateStory")
+    public ResponseEntity<?> updateStory(@RequestBody Map<String, String> requestBody) {
+        String storyId = requestBody.get("id");
+
+        try {
+            Status status = statusService.getStatusById(storyId);
+            if (status == null) {
+                return ResponseEntity.status(404).body("Story not found");
+            }
+
+
+            String description = requestBody.get("description");
+            String runDistance = requestBody.get("runDistance");
+            String numberOfPushups = requestBody.get("numberOfPushups");
+            String weightLifted = requestBody.get("weightLifted");
+            String caloriesBurned = requestBody.get("caloriesBurned");
+            String workoutType = requestBody.get("workoutType");
+            String workoutTime = requestBody.get("workoutTime");
+
+            status.setDescription(description);
+            status.setRunDistance(runDistance);
+            status.setNumberPushups(numberOfPushups);
+            status.setWeightLifted(weightLifted);
+            status.setCaloriesBurned(caloriesBurned);
+            status.setWorkoutType(workoutType);
+            status.setWorkoutTime(workoutTime);
+
+
+            statusService.updateStatus(status);
+
+            return ResponseEntity.ok("Story details updated successfully");
+        } catch (Exception e) {
+            return ResponseEntity.status(400).body("Error: " + e.getMessage());
+        }
+    }
+
 
 
 }

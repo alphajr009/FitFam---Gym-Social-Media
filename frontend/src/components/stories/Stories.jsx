@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Card, Modal, Form, Input, Row, Col, Select, Button } from "antd";
+import EditIcon from "@mui/icons-material/Edit";
 import "../../css/stories.css";
 import ImageUploader from "../ImageUploader";
 import axios from "axios";
@@ -10,7 +11,7 @@ import "slick-carousel/slick/slick-theme.css";
 const { Meta } = Card;
 
 function Story({ story, onClick }) {
-  console.log("Story ID:", story.id);
+  const user = JSON.parse(localStorage.getItem("currentUser"));
 
   const handleClick = () => {
     onClick(story);
@@ -23,6 +24,8 @@ function Story({ story, onClick }) {
         src={`/status/${story.id}.jpg`}
         alt="Hello"
       />
+
+      {story.userId === user._id && <p className="story-your">Your Story</p>}
       <p>{story.uname}</p>
     </div>
   );
@@ -41,10 +44,14 @@ function Stories() {
   const [caloriesBurned, setCaloriesBurned] = useState("");
   const [workoutType, setWorkoutType] = useState("");
   const [workoutTime, setWorkoutTime] = useState("");
+  const [storyID, setStoryID] = useState("");
   const [stories, setStories] = useState([]);
   const [uname, setUname] = useState(user.name);
   const [selectedStory, setSelectedStory] = useState(null);
   const [isModalVisible1, setIsModalVisible1] = useState(false);
+  const [editMode, setEditMode] = useState(false);
+
+  const { location } = window;
 
   const { Option } = Select;
 
@@ -58,6 +65,15 @@ function Stories() {
   const openModal = (story) => {
     setSelectedStory(story);
     setIsModalVisible1(true);
+
+    setDescription(story.description);
+    setRunDistance(story.runDistance);
+    setNumberOfPushups(story.numberPushups);
+    setWeightLifted(story.weightLifted);
+    setCaloriesBurned(story.caloriesBurned);
+    setWorkoutType(story.workoutType);
+    setWorkoutTime(story.workoutTime);
+    setStoryID(story.id);
   };
 
   const closeModal = () => {
@@ -79,7 +95,24 @@ function Stories() {
     async function fetchStories() {
       try {
         const response = await axios.get("/api/story/getAllStatus");
-        setStories(response.data);
+        const allStories = response.data;
+        const loggedInUserId = user._id;
+
+        const userStories = allStories.filter(
+          (story) => story.userId === loggedInUserId
+        );
+
+        const otherStories = allStories.filter(
+          (story) => story.userId !== loggedInUserId
+        );
+
+        userStories.sort(
+          (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+        );
+
+        const sortedStories = userStories.concat(otherStories);
+
+        setStories(sortedStories);
         setUname(user.name);
       } catch (error) {
         console.error("Error fetching stories:", error);
@@ -131,6 +164,7 @@ function Stories() {
     setWorkoutType("");
     setWorkoutTime("");
     setImageurl("");
+    setEditMode(false);
   };
 
   const handleFormChange = () => {
@@ -197,6 +231,52 @@ function Stories() {
     ],
   };
 
+  const handleEditButtonClick = () => {
+    setEditMode(!editMode);
+  };
+
+  const handleSave = () => {
+    changeStoryDetails(
+      description,
+      runDistance,
+      numberOfPushups,
+      weightLifted,
+      caloriesBurned,
+      workoutType,
+      workoutTime,
+      storyID
+    );
+  };
+
+  async function changeStoryDetails(
+    description,
+    runDistance,
+    numberOfPushups,
+    weightLifted,
+    caloriesBurned,
+    workoutType,
+    workoutTime,
+    storyID
+  ) {
+    try {
+      const res = await axios.patch("/api/story/updateStory", {
+        id: storyID,
+        description: description,
+        runDistance: runDistance,
+        numberOfPushups: numberOfPushups,
+        weightLifted: weightLifted,
+        caloriesBurned: caloriesBurned,
+        workoutType: workoutType,
+        workoutTime: workoutTime,
+      });
+      console.log(res.data);
+
+      location.reload();
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <div className="stories">
       <div className="story" onClick={handleCreateStory}>
@@ -214,7 +294,7 @@ function Stories() {
         <Slider key={stories.length} {...settings}>
           {stories.map((story) => (
             <div key={story.id}>
-              <Story story={story} onClick={openModal} />
+              <Story story={story} onClick={() => openModal(story)} />
             </div>
           ))}
         </Slider>
@@ -353,55 +433,174 @@ function Stories() {
               <h5>Workout Status</h5>
             </div>
             <div className="sm-content">
-              <img
-                className="story-card-image"
-                src={`/status/${selectedStory.id}.jpg`}
-                alt="Hello"
-              />
-              <Form layout="vertical" onValuesChange={handleFormChange}>
-                <Row gutter={[16, 16]}>
-                  <Col span={12}>
-                    <Form.Item label="Run Distance">
-                      <p>{selectedStory.runDistance} </p>
-                    </Form.Item>
-                  </Col>
-                  <Col span={12}>
-                    <Form.Item label="Number of Pushups">
-                      <p>{selectedStory.numberPushups} </p>
-                    </Form.Item>
-                  </Col>
-                </Row>
-                <Row gutter={[16, 16]}>
-                  <Col span={12}>
-                    <Form.Item label="Weight Lifted">
-                      <p>{selectedStory.weightLifted} </p>
-                    </Form.Item>
-                  </Col>
-                  <Col span={12}>
-                    <Form.Item label="Calories Burned">
-                      <p>{selectedStory.caloriesBurned} </p>
-                    </Form.Item>
-                  </Col>
-                </Row>
-                <Row gutter={[16, 16]}>
-                  <Col span={12}>
-                    <Form.Item label="Workout Type">
-                      <p>{selectedStory.workoutType} </p>
-                    </Form.Item>
-                  </Col>
-                  <Col span={12}>
-                    <Form.Item label="Workout Time">
-                      <p>{selectedStory.workoutTime} </p>
-                    </Form.Item>
-                  </Col>
-                </Row>
-                <Col>
-                  <Form.Item label="Description">
-                    <p>{selectedStory.description} </p>
-                  </Form.Item>
-                </Col>
-              </Form>
+              {editMode ? (
+                <div className="smc-body-form">
+                  <Form
+                    layout="vertical"
+                    onValuesChange={handleFormChange}
+                    initialValues={{
+                      description,
+                      runDistance,
+                      numberOfPushups,
+                      weightLifted,
+                      caloriesBurned,
+                      workoutType,
+                      workoutTime,
+                    }}
+                  >
+                    <Row gutter={[16, 16]}>
+                      <Col span={12}>
+                        <Form.Item label="Run Distance">
+                          <Input
+                            value={runDistance}
+                            placeholder="Enter distance"
+                            onChange={(e) => {
+                              setRunDistance(e.target.value);
+                            }}
+                          />
+                        </Form.Item>
+                      </Col>
+                      <Col span={12}>
+                        <Form.Item label="Number of Pushups">
+                          <Input
+                            placeholder="Enter number"
+                            value={numberOfPushups}
+                            onChange={(e) => {
+                              setNumberOfPushups(e.target.value);
+                            }}
+                          />
+                        </Form.Item>
+                      </Col>
+                    </Row>
+                    <Row gutter={[16, 16]}>
+                      <Col span={12}>
+                        <Form.Item label="Weight Lifted">
+                          <Input
+                            placeholder="Enter weight"
+                            onChange={(e) => {
+                              setWeightLifted(e.target.value);
+                            }}
+                            value={weightLifted}
+                          />
+                        </Form.Item>
+                      </Col>
+                      <Col span={12}>
+                        <Form.Item label="Calories Burned">
+                          <Input
+                            placeholder="Enter calories"
+                            onChange={(e) => {
+                              setCaloriesBurned(e.target.value);
+                            }}
+                            value={caloriesBurned}
+                          />
+                        </Form.Item>
+                      </Col>
+                    </Row>
+                    <Row gutter={[16, 16]}>
+                      <Col span={12}>
+                        <Form.Item label="Workout Type">
+                          <Select
+                            placeholder="Select type"
+                            onChange={handleCategoryChange}
+                            value={workoutType}
+                          >
+                            <Option value="running">Running</Option>
+                            <Option value="weightlifting">Weightlifting</Option>
+                            <Option value="cycling">Cycling</Option>
+                            <Option value="yoga">Yoga</Option>
+                            <Option value="swimming">Swimming</Option>
+                          </Select>
+                        </Form.Item>
+                      </Col>
+                      <Col span={12}>
+                        <Form.Item label="Workout Time">
+                          <Input
+                            value={workoutTime}
+                            placeholder="Enter time in hrs"
+                            onChange={(e) => {
+                              setWorkoutTime(e.target.value);
+                            }}
+                          />
+                        </Form.Item>
+                      </Col>
+                    </Row>
+                    <Col>
+                      <Form.Item label="Description">
+                        <Input.TextArea
+                          value={description}
+                          maxLength={125}
+                          placeholder="Enter description"
+                          onChange={(e) => {
+                            setDescription(e.target.value);
+                          }}
+                        />
+                      </Form.Item>
+                    </Col>
+                  </Form>
+                  <Button className="btn-save-status" onClick={handleSave}>
+                    Save
+                  </Button>
+                </div>
+              ) : (
+                <div>
+                  <img
+                    className="story-card-image"
+                    src={`/status/${selectedStory.id}.jpg`}
+                    alt="Hello"
+                  />
+                  <Form layout="vertical" onValuesChange={handleFormChange}>
+                    <Row gutter={[16, 16]}>
+                      <Col span={12}>
+                        <Form.Item label="Run Distance">
+                          <p>{selectedStory.runDistance} </p>
+                        </Form.Item>
+                      </Col>
+                      <Col span={12}>
+                        <Form.Item label="Number of Pushups">
+                          <p>{selectedStory.numberPushups} </p>
+                        </Form.Item>
+                      </Col>
+                    </Row>
+                    <Row gutter={[16, 16]}>
+                      <Col span={12}>
+                        <Form.Item label="Weight Lifted">
+                          <p>{selectedStory.weightLifted} </p>
+                        </Form.Item>
+                      </Col>
+                      <Col span={12}>
+                        <Form.Item label="Calories Burned">
+                          <p>{selectedStory.caloriesBurned} </p>
+                        </Form.Item>
+                      </Col>
+                    </Row>
+                    <Row gutter={[16, 16]}>
+                      <Col span={12}>
+                        <Form.Item label="Workout Type">
+                          <p>{selectedStory.workoutType} </p>
+                        </Form.Item>
+                      </Col>
+                      <Col span={12}>
+                        <Form.Item label="Workout Time">
+                          <p>{selectedStory.workoutTime} </p>
+                        </Form.Item>
+                      </Col>
+                    </Row>
+                    <Col>
+                      <Form.Item label="Description">
+                        <p>{selectedStory.description} </p>
+                      </Form.Item>
+                    </Col>
+                  </Form>
+                </div>
+              )}
             </div>
+            {selectedStory.userId === user._id && (
+              <div className="edit-status-btn">
+                <Button onClick={handleEditButtonClick}>
+                  {editMode ? "Back" : "Edit"}
+                </Button>{" "}
+              </div>
+            )}
           </div>
         )}
       </Modal>

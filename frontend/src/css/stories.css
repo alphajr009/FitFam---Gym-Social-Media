@@ -87,3 +87,26 @@
   margin-left: 160px;
   margin-bottom: 20px;
 }
+
+.story-your {
+  position: absolute;
+  bottom: 40px;
+  margin-left: 58px;
+}
+
+.edit-status-btn Button {
+  position: absolute;
+  top: 16px;
+  border: none;
+}
+
+.edit-status-btn .css-i4bv87-MuiSvgIcon-root {
+  color: rgb(255, 255, 255) !important;
+}
+
+.btn-save-status {
+  width: 100%;
+  color: white;
+  background-color: #0386c7;
+  border: none;
+}
