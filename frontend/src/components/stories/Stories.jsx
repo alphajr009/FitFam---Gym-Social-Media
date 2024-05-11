@@ -79,6 +79,14 @@ function Stories() {
   const closeModal = () => {
     setIsModalVisible1(false);
     setSelectedStory(null);
+    setDescription("");
+    setRunDistance("");
+    setNumberOfPushups("");
+    setWeightLifted("");
+    setCaloriesBurned("");
+    setWorkoutType("");
+    setWorkoutTime("");
+    setStoryID("");
   };
 
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -144,7 +152,7 @@ function Stories() {
       });
 
       console.log("Story created:", result.data);
-      window.location.href = "/feed";
+      location.reload();
     } catch (error) {
       console.log("Error creating Story:", error);
     }
@@ -385,6 +393,7 @@ function Stories() {
                     <Col span={12}>
                       <Form.Item label="Workout Time">
                         <Input
+                          value={workoutTime}
                           placeholder="Enter time in hrs"
                           onChange={(e) => {
                             setWorkoutTime(e.target.value);

@@ -31,8 +31,11 @@ public class StatusController {
                                               @RequestParam("weightLifted") String weightLifted,
                                               @RequestParam("caloriesBurned") String caloriesBurned,
                                               @RequestParam("workoutType") String workoutType,
-                                              @RequestParam("uname") String uname,
-                                              @RequestParam("workoutTime") String workoutTime) {
+                                              @RequestParam("workoutTime") String workoutTime,
+                                              @RequestParam("uname") String uname
+                                              ) {
+
+
         try {
             String uploadsDir = "status/";
 
