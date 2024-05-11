@@ -13,9 +13,12 @@ public class Status {
     private String runDistance;
     private String numberPushups;
     private String weightLifted;
+    private String uname;
     private String caloriesBurned;
     private String workoutType;
     private String description;
+
+    private String workoutTime;
     private String userId;
     private Date expiredAt;
 
@@ -24,13 +27,14 @@ public class Status {
     }
 
     public Status(String runDistance, String numberPushups, String weightLifted,
-                  String caloriesBurned, String workoutType, String description, String userId) {
+                  String caloriesBurned, String workoutType, String description, String userId ,String uname , String workoutTime ) {
         this.runDistance = runDistance;
         this.numberPushups = numberPushups;
         this.weightLifted = weightLifted;
         this.caloriesBurned = caloriesBurned;
         this.workoutType = workoutType;
         this.description = description;
+        this.uname = uname;
         this.userId = userId;
         this.expiredAt = new Date(System.currentTimeMillis() + 24 * 60 * 60 * 1000); // Set expiration to 24 hours
     }
@@ -51,6 +55,14 @@ public class Status {
         this.runDistance = runDistance;
     }
 
+    public String getUname() {
+        return uname;
+    }
+
+    public void setUname(String uname) {
+        this.uname = uname;
+    }
+
     public String getNumberPushups() {
         return numberPushups;
     }
@@ -65,6 +77,15 @@ public class Status {
 
     public void setWeightLifted(String weightLifted) {
         this.weightLifted = weightLifted;
+    }
+
+
+    public String getWorkoutTime() {
+        return workoutTime;
+    }
+
+    public void setWorkoutTime(String workoutTime) {
+        this.workoutTime = workoutTime;
     }
 
     public String getCaloriesBurned() {

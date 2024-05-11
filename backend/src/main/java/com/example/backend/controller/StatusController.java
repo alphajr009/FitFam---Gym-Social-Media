@@ -30,6 +30,7 @@ public class StatusController {
                                               @RequestParam("weightLifted") String weightLifted,
                                               @RequestParam("caloriesBurned") String caloriesBurned,
                                               @RequestParam("workoutType") String workoutType,
+                                              @RequestParam("uname") String uname,
                                               @RequestParam("workoutTime") String workoutTime) {
         try {
             String uploadsDir = "status/";
@@ -37,12 +38,12 @@ public class StatusController {
             String fileName = image.getOriginalFilename();
 
             Status status = new Status(runDistance, numberOfPushups, weightLifted, caloriesBurned,
-                    workoutType, description, userId);
+                    workoutType, description, userId ,uname, workoutTime);
 
             Status createdStory = statusService.addStatus(status);
 
             String storyId = createdStory.getId();
-            String filePath = uploadsDir + storyId + ".jpg"; // Change the file path
+            String filePath = uploadsDir + storyId + ".jpg";
 
             Path path = Paths.get(filePath);
             Files.write(path, image.getBytes());

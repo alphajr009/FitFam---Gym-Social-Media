@@ -1,84 +1,89 @@
+.story {
+  flex: 1;
+  border-radius: 19px;
+  overflow: hidden;
+  position: relative;
+  margin-right: -15px;
+  img {
+    width: 240px;
+    height: 230px;
+  }
+  span {
+    position: absolute;
+    bottom: -5px;
+    color: white;
+    font-weight: 600;
+    font-size: 16px;
+    left: 69px;
+  }
+  button {
+    position: absolute;
+    bottom: 35px;
+    left: 104px;
+    color: white;
+    background-color: #0386c7;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    font-size: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .story-bg {
+    background-color: #131516;
+    position: relative;
+  }
+}
+
 .stories {
   display: flex;
+  flex-direction: row;
   gap: 14px;
   height: 250px;
   margin-bottom: 30px;
   background-color: black;
+}
 
-  .story {
-    flex: 1;
-    border-radius: 19px;
-    overflow: hidden;
-    position: relative;
-    img {
-      width: 95%;
-      height: 95%;
-      object-fit: cover;
-    }
-    span {
-      position: absolute;
-      bottom: 10px;
-      color: white;
-      font-weight: 600;
-      font-size: 16px;
-      left: 24.5%;
-    }
-    button {
-      position: absolute;
-      bottom: 35px;
-      left: 39.5%;
-      color: white;
-      background-color: #0386c7;
-      border: none;
-      border-radius: 50%;
-      width: 30px;
-      height: 30px;
-      cursor: pointer;
-      font-size: 30px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .story-bg {
-      background-color: #131516;
-      position: relative;
-    }
-  }
+.story-card-image {
+  width: 190px;
+  height: 240px;
+  object-fit: cover;
+  border-radius: 19px;
+}
 
-  .story-all {
-    flex: 1;
-    border-radius: 19px;
-    overflow: hidden;
-    position: relative;
-    max-width: 80%;
-    img {
-      width: 95%;
-      height: 95%;
-      object-fit: cover;
-    }
-    span {
-      position: absolute;
-      bottom: 18px;
-      left: 10px;
-      color: white;
-      font-weight: 600;
-      font-size: 16px;
-    }
-    button {
-      position: absolute;
-      bottom: 40px;
-      left: 39.5%;
-      color: white;
-      background-color: #0386c7;
-      border: none;
-      border-radius: 50%;
-      width: 30px;
-      height: 30px;
-      cursor: pointer;
-      font-size: 30px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-  }
+.story-card span {
+  position: absolute;
+  color: white;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.all-stories {
+  max-width: 960px;
+}
+
+.sci {
+  margin-right: 20px;
+}
+
+.slick-prev:before,
+.slick-next:before {
+  color: black !important;
+}
+
+.sm-content p {
+  margin-top: -15px !important;
+  color: #787878 !important;
+}
+
+.sm-content .ant-form-item .ant-form-item-label > label {
+  font-size: 16px !important;
+}
+
+.sm-content img {
+  margin-left: 160px;
+  margin-bottom: 20px;
 }

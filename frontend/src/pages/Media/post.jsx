@@ -22,10 +22,9 @@ const Post = ({ post }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [isEditModalVisible, setIsEditModalVisible] = useState(false);
   const [editedPostContent, setEditedPostContent] = useState(post.description);
-
+  const [liked, setLiked] = useState(false);
   const user = JSON.parse(localStorage.getItem("currentUser"));
   const firstName = user.name.split(" ")[0];
-
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -48,7 +47,7 @@ const Post = ({ post }) => {
     try {
       const response = await axios.put(
         `http://localhost:5005/api/v1/feed/edit/${id}`,
-        { description: editedPostContent } 
+        { description: editedPostContent }
       );
       console.log("Post edited:", response.data);
       window.location.reload();
@@ -82,6 +81,10 @@ const Post = ({ post }) => {
       return defaultimg;
     }
   };
+
+  const handleLike = () => {
+    setLiked(!liked);
+  };
   return (
     <div className="post">
       <div className="container">
@@ -93,7 +96,7 @@ const Post = ({ post }) => {
                 to={`/profile/${post.userId}`}
                 style={{ textDecoration: "none", color: "inherit" }}
               ></Link>
-                 <span className="name">{user.name}</span>
+              <span className="name">{user.name}</span>
               <span className="date">1 min ago</span>
             </div>
           </div>
@@ -120,10 +123,15 @@ const Post = ({ post }) => {
           </div>
         </div>
         <div className="info">
-          <div className="item">
-            {/* {liked ? <FavoriteOutlinedIcon /> : <FavoriteBorderOutlinedIcon />}
-            {post.likes} */}
+          <div className="item" onClick={handleLike}>
+            {liked ? (
+              <FavoriteOutlinedIcon style={{ color: "red" }} />
+            ) : (
+              <FavoriteBorderOutlinedIcon style={{ color: "black" }} />
+            )}
+            {liked ? post.likes + 1 : post.likes}
           </div>
+
           <div className="item" onClick={() => setCommentOpen(!commentOpen)}>
             <TextsmsOutlinedIcon />
             {post.comments}
@@ -144,14 +152,14 @@ const Post = ({ post }) => {
       >
         <div className="userInfo">
           <img
-            src={getUserImage()}
+            src="https://upload.wikimedia.org/wikipedia/commons/e/e0/Userimage.png"
             alt=""
           />
           <div className="details">
-          <span className="name">{user.name}</span>
+            <span className="name">{user.name}</span>
           </div>
         </div>
-        <Form.Item label={"What's on your mind " + firstName} >
+        <Form.Item label={"What's on your mind " + firstName}>
           <TextArea
             style={{ height: "150px", width: "800px" }}
             value={editedPostContent}
@@ -160,16 +168,15 @@ const Post = ({ post }) => {
             className="custom-input"
           />
         </Form.Item>
-        
+
         <Button
-            key="submit"
-            type="primary"
-            className="post-button"
-            onClick={editDescription}
-          >
-            Save
-          </Button>
-        
+          key="submit"
+          type="primary"
+          className="post-button"
+          onClick={editDescription}
+        >
+          Save
+        </Button>
       </Modal>
     </div>
   );
